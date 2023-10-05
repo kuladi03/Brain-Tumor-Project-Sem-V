@@ -10,14 +10,14 @@ from sklearn.preprocessing import LabelEncoder
 from sklearn.metrics import accuracy_score
 
 # Load the dataset (replace 'your_dataset.csv' with the actual dataset file)
-data = pd.read_csv("assets/tumor_detection_dataset.csv")
+data = pd.read_csv("assets/dummy_dataset.csv")
 
 label_encoder = LabelEncoder()
 data['Tumor_Present'] = label_encoder.fit_transform(data['Tumor_Present'])
 
-# Define the features (X) and the target variable (y)
-X = data.drop(columns=['Tumor_Present'])  # Assuming 'Target' is the target variable
-y = data['Tumor_Present']  # Assuming 'Target' is the column that indicates the target variable
+# Define the features (X) and the Tumor_Present variable (y)
+X = data.drop(columns=['Tumor_Present'])  # Assuming 'Tumor_Present' is the Tumor_Present variable
+y = data['Tumor_Present']  # Assuming 'Tumor_Present' is the column that indicates the Tumor_Present variable
 
 # Split the data into training and testing sets
 X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.2, random_state=42)
@@ -62,7 +62,7 @@ for name, classifier in classifiers.items():
     feature_importance_df = feature_importance_df.sort_values(by='Importance', ascending=False)
 
     # Set a threshold for feature importance (you can adjust this threshold)
-    threshold = 0.1  # For example, only consider features with importance >= 0.01
+    threshold = 0.01  # For example, only consider features with importance >= 0.01
 
     # Select the most important features based on the threshold
     selected_features = feature_importance_df[feature_importance_df['Importance'] >= threshold]['Feature'].tolist()

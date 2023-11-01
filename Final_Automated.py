@@ -10,7 +10,7 @@ from sklearn.preprocessing import LabelEncoder
 from sklearn.metrics import accuracy_score
 
 # Load the dataset (replace 'your_dataset.csv' with the actual dataset file)
-data = pd.read_csv("assets/dummy_dataset.csv")
+data = pd.read_csv("assets/realistic_tumor_dataset.csv")
 
 label_encoder = LabelEncoder()
 data['Tumor_Present'] = label_encoder.fit_transform(data['Tumor_Present'])

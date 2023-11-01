@@ -1,5 +1,6 @@
 import os
 import tkinter as tk
+import webbrowser
 from tkinter import ttk
 from tkinter import filedialog
 from tkinter import messagebox
@@ -85,7 +86,7 @@ def generate_pdf_report(report_data, file_path):
 def open_report():
     report_file_path = "brain_tumor_classifier_report.pdf"
     if os.path.exists(report_file_path):
-        os.system(f"xdg-open {report_file_path}")
+        webbrowser.open(report_file_path)
     else:
         messagebox.showerror("Error", "Report file not found.")
 
@@ -237,7 +238,7 @@ def browse_file():
 
 window = tk.Tk()
 window.title("Brain Tumor Classifier")
-window.geometry("800x600")
+window.geometry("1000x800")
 window.configure(bg="lightgray")
 
 label = tk.Label(window, text="Brain Tumor Classifier", font=("Helvetica", 20), bg="lightgray")
@@ -249,6 +250,9 @@ file_frame.pack()
 file_label = tk.Label(file_frame, text="Select a dataset file (CSV):", bg="lightgray")
 file_label.pack(side="left", padx=10)
 
+view_report_button = tk.Button(window, text="View Report", command=open_report, bg="green", fg="white")
+view_report_button.pack(pady=10)
+
 select_button = tk.Button(file_frame, text="Browse", command=browse_file, bg="blue", fg="white")
 select_button.pack(side="left")
 
@@ -259,10 +263,14 @@ progress_bar.pack(pady=10)
 canvas = tk.Frame(window, bg="lightgray")
 canvas.pack(pady=20, padx=20, fill=tk.BOTH, expand=True)
 
-result_text = tk.Text(window, height=10, width=50)
-result_text.pack(pady=20)
+result_text = tk.Text(window, height=10, width=50, wrap=tk.WORD)
+result_text.pack(pady=10)
 
-view_report_button = tk.Button(window, text="View Report", command=open_report, bg="green", fg="white")
-view_report_button.pack(pady=10)
+# Create a Scrollbar widget for scrolling the Text widget
+scrollbar = tk.Scrollbar(window, command=result_text.yview)
+scrollbar.pack(side=tk.RIGHT, fill=tk.Y)
+
+# Configure the Text widget to use the Scrollbar
+result_text.config(yscrollcommand=scrollbar.set)
 
 window.mainloop()
